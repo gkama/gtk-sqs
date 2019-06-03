@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqs.core", "sqs.core\sqs.core.csproj", "{123B855C-AEC4-429A-A1F5-52047999B81E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqs.data", "sqs.data\sqs.data.csproj", "{615DC4C5-C182-4312-BCC5-9366D65F42E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqs.services", "sqs.services\sqs.services.csproj", "{F190D71E-2604-48DE-88B7-40523EDF1738}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{123B855C-AEC4-429A-A1F5-52047999B81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{123B855C-AEC4-429A-A1F5-52047999B81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{123B855C-AEC4-429A-A1F5-52047999B81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{123B855C-AEC4-429A-A1F5-52047999B81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615DC4C5-C182-4312-BCC5-9366D65F42E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615DC4C5-C182-4312-BCC5-9366D65F42E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615DC4C5-C182-4312-BCC5-9366D65F42E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615DC4C5-C182-4312-BCC5-9366D65F42E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F190D71E-2604-48DE-88B7-40523EDF1738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F190D71E-2604-48DE-88B7-40523EDF1738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F190D71E-2604-48DE-88B7-40523EDF1738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F190D71E-2604-48DE-88B7-40523EDF1738}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E25CE696-01C2-4217-8645-437733D71D4B}
+	EndGlobalSection
+EndGlobal
