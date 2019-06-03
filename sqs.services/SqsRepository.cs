@@ -19,11 +19,15 @@ namespace sqs.services
         public readonly IConfiguration configuration;
         public readonly ILogger log;
 
+        private readonly string _QueueUrl;
+
         public SqsRepository(IAmazonSQS sqs, IConfiguration configuration, ILogger<SqsRepository> log)
         {
             this.sqs = sqs;
             this.configuration = configuration;
             this.log = log;
+
+            this._QueueUrl = configuration["SqsQueueUrl"] ?? throw new ApplicationException("SqsQueueUrl environment variable is not set");
         }
 
         public async Task<Order> SendOrderAsync(Order order)
@@ -33,7 +37,7 @@ namespace sqs.services
                 log.LogInformation($"SENDING order {order.id}");
 
                 await sqs.SendMessageAsync(
-                    new SendMessageRequest(configuration["SqsQueueUrl"],
+                    new SendMessageRequest(_QueueUrl,
                     JsonConvert.SerializeObject(order)));
 
                 log.LogInformation($"COMPLETED order {order.id}");
@@ -52,7 +56,7 @@ namespace sqs.services
         {
             var response = await sqs.ReceiveMessageAsync(new ReceiveMessageRequest()
             {
-                QueueUrl = configuration["SqsQueueUrl"]
+                QueueUrl = _QueueUrl
             });
 
             var orders = new List<Order>();
@@ -65,12 +69,12 @@ namespace sqs.services
                 //Delete the message
                 var deleteMsgReq = new DeleteMessageRequest
                 {
-                    QueueUrl = configuration["SqsQueueUrl"],
+                    QueueUrl = _QueueUrl,
                     ReceiptHandle = x.ReceiptHandle
                 };
                 await sqs.DeleteMessageAsync(deleteMsgReq);
 
-                log.LogInformation($"received and deleted message {x.MessageId}");
+                log.LogInformation($"received, processed and deleted message {x.MessageId}");
             });
 
             return orders;
