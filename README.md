@@ -44,7 +44,7 @@ the `launchSettings.json` custom entry point is here
   "applicationUrl": "http://localhost:5000"
 }
 ```
-if you opt-in to use `appsettings.Local.json`, then you'd just need to follow the above instructions to add the file and you can then run the app. Otherwise, you'd have to change the `ASPNETCORE_ENVIRONMENT` here to `Development` and add the `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_QUEUE_URL` to the `appsettings.Development.json` file
+if you opt-in to use `appsettings.Local.json`, then you'd just need to follow the above instructions to add the file and you can then run the app. Otherwise, you'd have to change the `ASPNETCORE_ENVIRONMENT` here to `Development` and add the `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_QUEUE_URL` environment variables to the `appsettings.Development.json` file
 
 ### docs
 - https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-netcore.html
