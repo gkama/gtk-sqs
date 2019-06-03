@@ -9,7 +9,7 @@ sample project for integrating AWS SQS into ASP.NET Core API. it uses a basic AW
 - the `SqsRepository.cs` uses the SQS client to send and receive messages
 
 ### how to run it
-first, you'll need to add the environment settings that are referenced here
+first, you'll need to add the environment settings that are referenced in `Startup.cs` here
 
 ``` csharp
 Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", Configuration["AWS_ACCESS_KEY_ID"]);
@@ -17,7 +17,7 @@ Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", Configuration["AWS_S
 Environment.SetEnvironmentVariable("AWS_REGION", Configuration["AWS_REGION"]);
 ```
 
-by adding a `appsettings.Local.json` (or if you'd like, add them straigh to your `appsettings.Development` and run the app). mine looks like this
+by adding a `appsettings.Local.json` (or if you'd like, add them straight to your `appsettings.Development.json` and run the app). mine looks like this
 ``` json
 {
   "Logging": {
@@ -33,6 +33,18 @@ by adding a `appsettings.Local.json` (or if you'd like, add them straigh to your
   "AWS_QUEUE_URL": "your queue url here"
 }
 ```
+
+the `launchSettings.json` custom entry point is here
+``` json
+"sqs.core": {
+  "commandName": "Project",
+  "environmentVariables": {
+    "ASPNETCORE_ENVIRONMENT": "Local"
+  },
+  "applicationUrl": "http://localhost:5000"
+}
+```
+if you opt-in to use `appsettings.Local.json`, then you'd just need to follow the above instructions to add the file and you can then run the app. Otherwise, you'd have to change the `ASPNETCORE_ENVIRONMENT` here to `Development` and add the `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_QUEUE_URL` to the `appsettings.Development.json` file
 
 ### docs
 - https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-netcore.html
