@@ -1,5 +1,5 @@
 # gtk-sqs
-sample project for integrating AWS SQS into ASP.NET Core API. it uses a basic AWS authorization to a queue named `orders` and has two main functionalities - send a message and receive a message. once the message is received, it gets processed and deleted from the queue. this is basic logic that is offered by `AWS SQS`
+sample project for integrating `AWS SQS` into `ASP.NET Core API`. it uses a basic AWS authorization to a queue named `orders` and has two main functionalities - send a message and receive a message. once the message is received, it gets processed and deleted from the queue. this is basic logic that is offered by `AWS SQS`
 
 ### scaffolding
 - I have changed the `launchSettings.json` to run in `Local` environment under `sqs.core` start
