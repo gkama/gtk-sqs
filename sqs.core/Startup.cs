@@ -15,6 +15,7 @@ using Amazon.SQS;
 
 using sqs.data;
 using sqs.services;
+using Amazon.Runtime;
 
 namespace sqs.core
 {
@@ -35,8 +36,19 @@ namespace sqs.core
              * 
              * https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-netcore.html
              */
-            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            //var awsOptions = Configuration.GetAWSOptions();
+            //awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();
+
+            var options = Configuration.GetAWSOptions();
+            options.Credentials = new BasicAWSCredentials(Configuration["AWS_ACCESS_KEY_ID"], Configuration["AWS_SECRET_ACCESS_KEY"]);
+            options.Region = Amazon.RegionEndpoint.GetBySystemName(Configuration["AWS_REGION"]);
+
+            services.AddDefaultAWSOptions(options);
             services.AddAWSService<IAmazonSQS>();
+
+            services.AddScoped<ISqsRepository, SqsRepository>();
+
+            services.AddHealthChecks();
 
             services.AddMvc()
                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -44,7 +56,6 @@ namespace sqs.core
                {
                    o.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
                });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +66,7 @@ namespace sqs.core
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHealthChecks("/api/ping");
             app.UseMvc();
         }
     }

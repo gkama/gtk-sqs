@@ -9,6 +9,6 @@ namespace sqs.data
         public string desc { get; set; }
         public string status { get; set; }
 
-        public ICollection<IItem> items { get; set; } = new List<IItem>();
+        public ICollection<Item> items { get; set; } = new List<Item>();
     }
 }

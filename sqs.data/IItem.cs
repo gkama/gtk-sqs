@@ -7,6 +7,7 @@ namespace sqs.data
     public interface IItem
     {
         int id { get; set; }
+        string name { get; set; }
         string desc { get; set; }
     }
 }
