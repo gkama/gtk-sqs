@@ -27,7 +27,7 @@ namespace sqs.services
             this.configuration = configuration;
             this.log = log;
 
-            this._QueueUrl = configuration["SqsQueueUrl"] ?? throw new ApplicationException("SqsQueueUrl environment variable is not set");
+            this._QueueUrl = configuration["AWS_QUEUE_URL"] ?? throw new ApplicationException("SqsQueueUrl environment variable is not set");
         }
 
         public async Task<Order> SendOrderAsync(Order order)
