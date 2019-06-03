@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -31,7 +32,8 @@ namespace sqs.services
             {
                 log.LogInformation($"SENDING order {order.id}");
 
-                await sqs.SendMessageAsync(new SendMessageRequest(configuration["SqsQueueUrl"],
+                await sqs.SendMessageAsync(
+                    new SendMessageRequest(configuration["SqsQueueUrl"],
                     JsonConvert.SerializeObject(order)));
 
                 log.LogInformation($"COMPLETED order {order.id}");
@@ -44,6 +46,34 @@ namespace sqs.services
 
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<Order>> ReceiveOrderAsync()
+        {
+            var response = await sqs.ReceiveMessageAsync(new ReceiveMessageRequest()
+            {
+                QueueUrl = configuration["SqsQueueUrl"]
+            });
+
+            var orders = new List<Order>();
+
+            response.Messages.ForEach(async x =>
+            {
+                //Process the message
+                orders.Add(JsonConvert.DeserializeObject<Order>(x.Body));
+
+                //Delete the message
+                var deleteMsgReq = new DeleteMessageRequest
+                {
+                    QueueUrl = configuration["SqsQueueUrl"],
+                    ReceiptHandle = x.ReceiptHandle
+                };
+                await sqs.DeleteMessageAsync(deleteMsgReq);
+
+                log.LogInformation($"received and deleted message {x.MessageId}");
+            });
+
+            return orders;
         }
     }
 }

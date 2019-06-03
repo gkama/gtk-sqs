@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Amazon.SQS.Model;
 using Microsoft.AspNetCore.Mvc;
 
 using sqs.data;
@@ -26,6 +26,13 @@ namespace sqs.core.Controllers
         public async Task<IActionResult> SendOrderAsync([FromBody]Order order)
         {
             return new JsonResult(await repo.SendOrderAsync(order));
+        }
+
+        [Route("receive/orders")]
+        [HttpGet]
+        public async Task<IActionResult> ReceiveMessagesAsync()
+        {
+            return new JsonResult(await repo.ReceiveOrderAsync());
         }
     }
 }

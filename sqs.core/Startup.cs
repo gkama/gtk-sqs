@@ -36,16 +36,17 @@ namespace sqs.core
              * 
              * https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-netcore.html
              */
-            //var awsOptions = Configuration.GetAWSOptions();
-            //awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();
+            Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", Configuration["AWS_ACCESS_KEY_ID"]);
+            Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", Configuration["AWS_SECRET_ACCESS_KEY"]);
+            Environment.SetEnvironmentVariable("AWS_REGION", Configuration["AWS_REGION"]);
 
-            var options = Configuration.GetAWSOptions();
-            options.Credentials = new BasicAWSCredentials(Configuration["AWS_ACCESS_KEY_ID"], Configuration["AWS_SECRET_ACCESS_KEY"]);
-            options.Region = Amazon.RegionEndpoint.GetBySystemName(Configuration["AWS_REGION"]);
+            var awsOptions = Configuration.GetAWSOptions();
+            awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();
 
-            services.AddDefaultAWSOptions(options);
+            services.AddDefaultAWSOptions(awsOptions);
             services.AddAWSService<IAmazonSQS>();
 
+            //DI
             services.AddScoped<ISqsRepository, SqsRepository>();
 
             services.AddHealthChecks();
