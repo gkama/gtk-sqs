@@ -8,7 +8,7 @@ using sqs.data;
 
 namespace sqs.services
 {
-    public class SqsRepository
+    public class SqsRepository : ISqsRepository
     {
         public readonly IAmazonSQS sqs;
         public readonly ILogger log;
