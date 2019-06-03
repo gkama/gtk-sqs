@@ -27,7 +27,7 @@ namespace sqs.core
         {
             /*
              * docs
-             * 
+             * https://docs.aws.amazon.com/sdk-for-net/v2/developer-guide/how-to-sqs.html
              * https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-netcore.html
              */
             Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", Configuration["AWS_ACCESS_KEY_ID"]);
